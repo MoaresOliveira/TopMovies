@@ -1,6 +1,6 @@
-package io.github.moaresoliveira;
+package io.github.moaresoliveira.topmovies;
 
-import io.github.moaresoliveira.services.ImdbApi;
+import io.github.moaresoliveira.topmovies.services.ImdbApi;
 
 import java.io.IOException;
 

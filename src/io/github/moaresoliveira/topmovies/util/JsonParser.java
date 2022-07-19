@@ -1,4 +1,4 @@
-package io.github.moaresoliveira.util;
+package io.github.moaresoliveira.topmovies.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
