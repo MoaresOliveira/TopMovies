@@ -14,7 +14,7 @@
 # AWS User-specific
 .idea/**/aws.xml
 target
-
+saida/
 # Generated files
 .idea/**/contentModel.xml
 
