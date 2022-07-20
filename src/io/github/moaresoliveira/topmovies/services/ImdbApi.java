@@ -5,12 +5,12 @@ import io.github.moaresoliveira.topmovies.util.JsonParser;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ImdbApi {
@@ -27,11 +27,17 @@ public class ImdbApi {
         String body = response.body();
         System.out.println(API_KEY);
         List<Filme> listaDeFilmes = JsonParser.parse(body).stream().map(Filme::new).collect(Collectors.toList());
+        var stickerGenerator = new StickerGenerator();
         for (Filme filme : listaDeFilmes) {
+
+            try {
+                stickerGenerator.createSticker(new URL(filme.getImage()).openStream(),filme.getTitle(), filme.getRating());
+            } catch (IOException e) {
+                continue;
+            }
+
             System.out.println("\u001b[0mTitulo:\u001b[1m " + filme.getTitle());
-            System.out.println("\u001b[0mPoster:\u001b[1m " + filme.getImage());
-            System.out.println("\u001b[0mClassificação:\u001b[1m " + filme.getRating());
-            System.out.println("\u001b[33m\u001b[40m" + filme.getStarRating()+"\u001b[0m");
+            System.out.println("\u001b[0mImage:\u001b[1m " + filme.getImage());
             System.out.println();
         }
 

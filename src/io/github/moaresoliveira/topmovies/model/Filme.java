@@ -1,6 +1,8 @@
 package io.github.moaresoliveira.topmovies.model;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Filme {
 
@@ -15,14 +17,14 @@ public class Filme {
     public Filme(Map<String, String> filme) {
         this.title = filme.get("title");
         this.year = filme.get("year");
-        this.image = filme.get("image");
+        this.setImage(filme.get("image"));
         this.setRating(filme.get("imDbRating"));
     }
 
     public String getStarRating(){
         String estrelas = "";
         for (int i = 0; i < rating; i++) {
-            estrelas += "\uD83C\uDF1F";
+            estrelas += "⭐";
         }
         return estrelas;
     }
@@ -48,7 +50,12 @@ public class Filme {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        Pattern pattern = Pattern.compile("(@)(\\S{1,})(.jpg)");
+        Matcher matcher = pattern.matcher(image);
+        if(matcher.find()){
+            this.image = matcher.replaceFirst("$1$3");
+        }
+        this.image = image.replaceAll("@\\S{1,}.jpg","@.jpg");
     }
 
     public Double getRating() {
